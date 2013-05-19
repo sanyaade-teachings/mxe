@@ -2,15 +2,16 @@
 # See index.html for further information.
 
 PKG             := gnutls
-$(PKG)_CHECKSUM := 3c4d9fc40305895079676a6ebb01d87da810cd8d
+$(PKG)_CHECKSUM := f53e8621a94ce05162f261c2dc3898d9b39587db
 $(PKG)_SUBDIR   := gnutls-$($(PKG)_VERSION)
 $(PKG)_FILE     := gnutls-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1//$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc gettext nettle pcre zlib
 
 define $(PKG)_UPDATE
-    $(WGET) wget -q -O- ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1/ | \
-    $(SED) -n 's,.*gnutls-\([1-9]\.[0-9].[0-9]\)\..*,\1,p' | \
+    $(WGET) -q -O- ftp://ftp.gnutls.org/gcrypt/gnutls/v3.1/ | \
+    $(SED) -n 's,.*gnutls-\([1-9]\+\.[0-9]\+.[0-9]\+\)\..*,\1,p' | \
+    $(SORT) -V | \
     tail -1
 endef
 
@@ -31,6 +32,7 @@ define $(PKG)_BUILD
         --prefix='$(PREFIX)/$(TARGET)' \
         --disable-nls \
         --disable-guile \
+        --disable-docs \
         --with-included-libtasn1 \
         --with-libregex='$(PREFIX)/$(TARGET)' \
         --with-regex-header=pcreposix.h \

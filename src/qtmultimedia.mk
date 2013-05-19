@@ -3,14 +3,14 @@
 
 PKG             := qtmultimedia
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 33fc39b177aeba6863a28c5d45cd2175b2faedc2
+$(PKG)_CHECKSUM := 1bf371d724bffe5e586ac01d279afabb8771bd73
 $(PKG)_SUBDIR   := $(PKG)-opensource-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-opensource-src-$($(PKG)_VERSION).tar.xz
-$(PKG)_URL      := http://releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules_tar/$($(PKG)_FILE)
+$(PKG)_URL      := http://origin.releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc qtbase
 
 define $(PKG)_UPDATE
-    echo 'Warning: Updates are temporarily disabled for package qtmultimedia.' >&2;
+    echo $(qtbase_VERSION)
 endef
 
 define $(PKG)_BUILD

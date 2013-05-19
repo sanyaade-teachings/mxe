@@ -3,7 +3,7 @@
 
 PKG             := fontconfig
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 39aeb881c422fa0f0cd5e044ed05c94835fd89c4
+$(PKG)_CHECKSUM := 5897402b2d05b7dca2843106b6a0e86c39ad0a4c
 $(PKG)_SUBDIR   := fontconfig-$($(PKG)_VERSION)
 $(PKG)_FILE     := fontconfig-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := http://fontconfig.org/release/$($(PKG)_FILE)
@@ -23,7 +23,8 @@ define $(PKG)_BUILD
         --disable-shared \
         --prefix='$(PREFIX)/$(TARGET)' \
         --with-arch='$(TARGET)' \
-        --with-expat='$(PREFIX)/$(TARGET)'
+        --with-expat='$(PREFIX)/$(TARGET)' \
+        --disable-docs
     $(MAKE) -C '$(1)' -j '$(JOBS)' bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=
     $(MAKE) -C '$(1)' -j 1 install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=
 endef

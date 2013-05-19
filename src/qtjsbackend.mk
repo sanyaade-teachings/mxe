@@ -3,14 +3,14 @@
 
 PKG             := qtjsbackend
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 9f499e144080318fb6c40501b854db909f8ba3d2
+$(PKG)_CHECKSUM := 83dd0976a350ff877f7df3a113c2a2ffb0ffc006
 $(PKG)_SUBDIR   := $(PKG)-opensource-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-opensource-src-$($(PKG)_VERSION).tar.xz
-$(PKG)_URL      := http://releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules_tar/$($(PKG)_FILE)
+$(PKG)_URL      := http://origin.releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc qtbase
 
 define $(PKG)_UPDATE
-    echo 'Warning: Updates are temporarily disabled for package qtjsbackend.' >&2;
+    echo $(qtbase_VERSION)
 endef
 
 define $(PKG)_BUILD

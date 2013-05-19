@@ -3,11 +3,10 @@
 
 PKG             := openexr
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := b97cc40af82a8514c95c7a6a31f4e3233dcc2912
+$(PKG)_CHECKSUM := 774ae69ac01bbe4443b6fa0a9b12e276d0af44f5
 $(PKG)_SUBDIR   := openexr-$($(PKG)_VERSION)
 $(PKG)_FILE     := openexr-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := http://download.savannah.nongnu.org/releases/openexr/$($(PKG)_FILE)
-$(PKG)_URL_2    := https://github.com/downloads/openexr/openexr/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc ilmbase pthreads zlib
 
 define $(PKG)_UPDATE
@@ -51,4 +50,9 @@ define $(PKG)_BUILD
         -o b44ExpLogTable
     '$(1)/IlmImf/b44ExpLogTable' > '$(1)/IlmImf/b44ExpLogTable.h'
     $(MAKE) -C '$(1)' -j '$(JOBS)' install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=
+
+    '$(TARGET)-g++' \
+        -Wall -Wextra -std=gnu++0x \
+        '$(2).cpp' -o '$(PREFIX)/$(TARGET)/bin/test-openexr.exe' \
+        `'$(TARGET)-pkg-config' OpenEXR --cflags --libs`
 endef

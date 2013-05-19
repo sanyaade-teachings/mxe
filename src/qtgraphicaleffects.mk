@@ -3,14 +3,14 @@
 
 PKG             := qtgraphicaleffects
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := fb071d130ae48839014c81ff9104bf8d72ab329b
+$(PKG)_CHECKSUM := ac0e12763a19d7ce289ee976e8e7da8689b81bd5
 $(PKG)_SUBDIR   := $(PKG)-opensource-src-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-opensource-src-$($(PKG)_VERSION).tar.xz
-$(PKG)_URL      := http://releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules_tar/$($(PKG)_FILE)
+$(PKG)_URL      := http://origin.releases.qt-project.org/qt5/$($(PKG)_VERSION)/submodules/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc qtbase qtdeclarative
 
 define $(PKG)_UPDATE
-    echo 'Warning: Updates are temporarily disabled for package qtgraphicaleffects.' >&2;
+    echo $(qtbase_VERSION)
 endef
 
 define $(PKG)_BUILD

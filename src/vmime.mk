@@ -3,7 +3,7 @@
 
 PKG             := vmime
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 7e2270d899a87889231119d8c9a9d4a39deb1563
+$(PKG)_CHECKSUM := 31de466bcefb9e18b770bbfc14b383b9ea1c9eed
 $(PKG)_SUBDIR   := kisli-vmime-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := https://github.com/kisli/vmime/tarball/$($(PKG)_VERSION)/$(PKG)_FILE
@@ -22,19 +22,17 @@ define $(PKG)_BUILD
         -DCMAKE_RANLIB='$(PREFIX)/bin/$(TARGET)-ranlib' \
         -DVMIME_HAVE_MESSAGING_PROTO_SENDMAIL=False \
         -DCMAKE_CXX_FLAGS='-DWINVER=0x0501 -DAI_ADDRCONFIG=0x0400 -DIPV6_V6ONLY=27' \
+        -DVMIME_BUILD_STATIC_LIBRARY=ON \
+        -DVMIME_BUILD_SHARED_LIBRARY=OFF \
         .
 
-    # Disable VMIME_HAVE_MLANG_H
-    # We have the header, but there is no implementation for IMultiLanguage in MinGW
-    $(SED) -i 's,^#define VMIME_HAVE_MLANG_H 1$$,,' '$(1)/vmime/config.hpp'
-
     $(MAKE) -C '$(1)' -j '$(JOBS)'
+    $(SED) -i 's,^\(Libs.private:.* \)$(PREFIX)/$(TARGET)/lib/libiconv\.a,\1-liconv,g' $(1)/vmime.pc
     $(MAKE) -C '$(1)' install
-    $(INSTALL) -m644 '$(1)/vmime/config.hpp' '$(PREFIX)/$(TARGET)/include/vmime/'
 
     $(SED) -i 's/posix/windows/g;' '$(1)/examples/example6.cpp'
     $(TARGET)-g++ -s -o '$(1)/examples/test-vmime.exe' \
         '$(1)/examples/example6.cpp' \
-        `'$(TARGET)-pkg-config' libvmime --cflags --libs`
+        `'$(TARGET)-pkg-config' vmime --cflags --libs`
     $(INSTALL) -m755 '$(1)/examples/test-vmime.exe' '$(PREFIX)/$(TARGET)/bin/'
 endef

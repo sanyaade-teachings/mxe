@@ -3,16 +3,18 @@
 
 PKG             := json-c
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := f90f643c8455da21d57b3e8866868a944a93c596
+$(PKG)_CHECKSUM := 4bae2468bfd73a2b2eec7419c75c262b5833f567
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
-$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
-$(PKG)_URL      := https://github.com/downloads/$(PKG)/$(PKG)/$($(PKG)_FILE)
+$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION)-nodoc.tar.gz
+$(PKG)_URL      := https://s3.amazonaws.com/$(PKG)_releases/releases/$($(PKG)_FILE)
 $(PKG)_DEPS     := gcc
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'https://github.com/json-c/json-c/downloads' | \
-    $(SED) -n 's,.*href="/downloads/json-c/json-c/json-c-\([0-9.]*\).tar.gz.*,\1,p' | \
-    head -1
+    $(WGET) -q -O- 'https://s3.amazonaws.com/json-c_releases' | \
+    $(SED) -r 's,<Key>,\n<Key>,g' | \
+    $(SED) -n 's,.*releases/json-c-\([0-9.]*\).tar.gz.*,\1,p' | \
+    $(SORT) -V | \
+    tail -1
 endef
 
 define $(PKG)_BUILD
