@@ -22,7 +22,7 @@ define $(PKG)_BUILD
     cd '$(1)' && ./configure \
         --host='$(TARGET)' \
         --build="`config.guess`" \
-        --enable-shared \
+        --disable-shared \
         --prefix='$(PREFIX)/$(TARGET)' \
         --enable-pcre16 \
         --enable-utf \
