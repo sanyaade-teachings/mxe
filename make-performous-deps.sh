@@ -1,2 +1,2 @@
 #!/bin/sh
-make $@ gcc gettext sdl glew cairo librsvg boost ffmpeg libpng jpeg libsamplerate libxml++ portaudio
+make $@ gcc gettext sdl glew cairo librsvg boost ffmpeg libpng jpeg libsamplerate libxml++ portaudio portmidi opencv
