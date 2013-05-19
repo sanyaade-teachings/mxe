@@ -32,7 +32,7 @@ define $(PKG)_BUILD
         -force-pkg-config \
         -release \
         -exceptions \
-        -shared \
+        -static \
         -prefix '$(PREFIX)/$(TARGET)/qt' \
         -prefix-install \
         -script \
@@ -40,9 +40,9 @@ define $(PKG)_BUILD
         -opengl desktop \
         -no-webkit \
         -no-glib \
-        -gstreamer \
-        -phonon \
-        -phonon-backend \
+        -no-gstreamer \
+        -no-phonon \
+        -no-phonon-backend \
         -accessibility \
         -no-reduce-exports \
         -no-rpath \

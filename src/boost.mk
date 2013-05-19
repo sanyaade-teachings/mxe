@@ -30,7 +30,7 @@ define $(PKG)_BUILD
         --user-config=user-config.jam \
         target-os=windows \
         threading=multi \
-        link=shared \
+        link=static \
         threadapi=win32 \
         --layout=tagged \
         --without-mpi \
